@@ -470,6 +470,8 @@ btnNovoCadastro.addEventListener(
 
         formCadastro.reset();
 
+        alterarEstadoBotao("normal");
+
         mostrarTela(telaPublica);
 
         campoNome.focus();
