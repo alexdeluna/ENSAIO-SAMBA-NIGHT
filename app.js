@@ -2,11 +2,11 @@ import { auth, db } from "./firebase-config.js";
 
 import {
     collection,
-    addDoc,
     serverTimestamp,
     getDocs,
     doc,
-    updateDoc
+    updateDoc,
+    writeBatch
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 import {
@@ -346,21 +346,81 @@ formCadastro.addEventListener(
                 gerarCodigoVip();
 
 
-            await addDoc(
-                collection(
-                    db,
-                    "listaVip"
-                ),
-                {
-                    codigo: codigo,
-                    nome: nome,
-                    email: email,
-                    whatsapp: whatsapp,
-                    status: "ativo",
-                    criadoEm: serverTimestamp()
-                }
-            );
+            const cadastroRef =
+    doc(
+        collection(
+            db,
+            "listaVip"
+        )
+    );
 
+const emailRef =
+    doc(
+        db,
+        "unicidadeEmail",
+        email
+    );
+
+const whatsappRef =
+    doc(
+        db,
+        "unicidadeWhatsapp",
+        whatsapp
+    );
+
+
+const lote =
+    writeBatch(db);
+
+
+// ========================================================
+// CADASTRO PRINCIPAL
+// ========================================================
+
+lote.set(
+    cadastroRef,
+    {
+        codigo: codigo,
+        nome: nome,
+        email: email,
+        whatsapp: whatsapp,
+        status: "ativo",
+        criadoEm: serverTimestamp()
+    }
+);
+
+
+// ========================================================
+// RESERVA DO E-MAIL
+// ========================================================
+
+lote.set(
+    emailRef,
+    {
+        cadastroId: cadastroRef.id,
+        criadoEm: serverTimestamp()
+    }
+);
+
+
+// ========================================================
+// RESERVA DO WHATSAPP
+// ========================================================
+
+lote.set(
+    whatsappRef,
+    {
+        cadastroId: cadastroRef.id,
+        criadoEm: serverTimestamp()
+    }
+);
+
+
+// ========================================================
+// EXECUTA TUDO COMO UMA ÚNICA OPERAÇÃO
+// ========================================================
+
+await lote.commit();
 
             codigoVip.textContent =
                 codigo;
@@ -379,9 +439,19 @@ formCadastro.addEventListener(
                 erro
             );
 
-            alert(
-                "Não foi possível realizar seu cadastro. Tente novamente."
-            );
+            if (erro.code === "permission-denied") {
+
+    alert(
+        "Este e-mail ou WhatsApp já está cadastrado na Lista VIP."
+    );
+
+} else {
+
+    alert(
+        "Não foi possível realizar seu cadastro. Tente novamente."
+    );
+
+}
 
             alterarEstadoBotao("normal");
         }
