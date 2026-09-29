@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta
+        name="description"
+        content="Lista VIP - Ensaio do Samba Nigth"
+    >
+
+    <meta
+        name="theme-color"
+        content="#090909"
+    >
+
+    <title>Lista VIP | Ensaio do Samba Nigth</title>
+
+    <link
+        rel="stylesheet"
+        href="./visual.css"
+    >
+
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="app">
+
+        <!-- =================================================
+             ÁREA PÚBLICA
+        ================================================== -->
+
+        <section
+            id="telaPublica"
+            class="tela"
+        >
+
+            <!-- =========================
+                 EVENTO
+            ========================== -->
+
+            <section class="evento">
+
+                <div class="evento-imagem">
+
+                    <img
+                        src="./assets/samba-nigth.png"
+                        alt="Ensaio do Samba Nigth"
+                    >
+
+                </div>
+
+
+                <div class="evento-info">
+
+                    <div class="evento-data">
+
+                        <strong>
+                            11/10/2026
+                        </strong>
+
+                        <span>
+                            Véspera de feriado
+                        </span>
+
+                    </div>
+
+
+                    <div class="horarios">
+
+                        <div class="horario">
+
+                            <strong>
+                                14h
+                            </strong>
+
+                            <span>
+                                Portões abertos
+                            </span>
+
+                        </div>
+
+
+                        <div class="separador"></div>
+
+
+                        <div class="horario">
+
+                            <strong>
+                                15h
+                            </strong>
+
+                            <span>
+                                Grupo tocando
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 LISTA VIP
+            ========================== -->
+
+            <section class="vip">
+
+                <div class="vip-titulo">
+
+                    <span class="coroa">
+                        ♛
+                    </span>
+
+                    <h2>
+                        LISTA <span>VIP</span>
+                    </h2>
+
+                    <p>
+                        Garanta seu cadastro e venha curtir
+                        esse encontro especial com a gente!
+                    </p>
+
+                </div>
+
+
+                <!-- =========================
+                     FORMULÁRIO
+                ========================== -->
+
+                <form
+                    id="formCadastro"
+                    autocomplete="on"
+                >
+
+                    <div class="campo">
+
+                        <label for="nome">
+                            Nome completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            placeholder="Digite seu nome"
+                            autocomplete="name"
+                            maxlength="100"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="email">
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="seu@email.com"
+                            autocomplete="email"
+                            maxlength="150"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="whatsapp">
+                            WhatsApp
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="whatsapp"
+                            name="whatsapp"
+                            placeholder="(81) 99999-9999"
+                            autocomplete="tel"
+                            inputmode="numeric"
+                            maxlength="15"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="btnCadastrar"
+                    >
+                        CADASTRAR NA LISTA VIP
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- =========================
+                     INFORMAÇÕES
+                ========================== -->
+
+                <div class="vip-aviso">
+
+                    <div>
+
+                        <strong>
+                            Seu código VIP
+                        </strong>
+
+                        <span>
+                            Será gerado após o cadastro
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Entrada
+                        </strong>
+
+                        <span>
+                            Apresente seu código no evento
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     ACESSO ADMINISTRATIVO
+                ========================== -->
+
+                <footer class="rodape-publico">
+
+                    <span>
+                        © Samba Nigth 2026
+                    </span>
+
+                    <button
+                        type="button"
+                        id="acessoAdmin"
+                        aria-label="Acesso administrativo"
+                    >
+                        •
+                    </button>
+
+                </footer>
+
+            </section>
+
+        </section>
+
+
+        <!-- =================================================
+             TELA DE CONFIRMAÇÃO
+        ================================================== -->
+
+        <section
+            id="confirmacao"
+            class="confirmacao oculto"
+        >
+
+            <div class="confirmacao-card">
+
+                <div class="confirmacao-icone">
+                    ✓
+                </div>
+
+
+                <h2>
+                    Cadastro confirmado!
+                </h2>
+
+
+                <p id="mensagemConfirmacao">
+                    Seu cadastro foi realizado.
+                </p>
+
+
+                <div class="codigo-container">
+
+                    <span>
+                        SEU CÓDIGO VIP
+                    </span>
+
+                    <strong id="codigoVip">
+                        ---
+                    </strong>
+
+                </div>
+
+
+                <p class="instrucao">
+                    Guarde este código e apresente-o
+                    na entrada do evento.
+                </p>
+
+
+                <button
+                    type="button"
+                    id="btnNovoCadastro"
+                    class="btn-secundario"
+                >
+                    FAZER NOVO CADASTRO
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ÁREA ADMINISTRATIVA
+        ================================================== -->
+
+        <section
+            id="telaAdminLogin"
+            class="tela-admin oculto"
+        >
+
+            <div class="admin-login">
+
+                <div class="admin-logo">
+                    ♛
+                </div>
+
+
+                <h1>
+                    Lista VIP
+                </h1>
+
+
+                <p>
+                    Acesso administrativo
+                </p>
+
+
+                <form id="formLogin">
+
+                    <div class="campo">
+
+                        <label for="emailAdmin">
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="emailAdmin"
+                            placeholder="E-mail do administrador"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="senhaAdmin">
+                            Senha
+                        </label>
+
+                        <input
+                            type="password"
+                            id="senhaAdmin"
+                            placeholder="Senha"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="btnLogin"
+                    >
+                        ENTRAR NO PAINEL
+                    </button>
+
+
+                    <p
+                        id="mensagemLogin"
+                        class="mensagem-login"
+                    ></p>
+
+                </form>
+
+
+                <button
+                    type="button"
+                    id="btnVoltarPublico"
+                    class="btn-secundario"
+                >
+                    VOLTAR
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PAINEL ADMINISTRATIVO
+        ================================================== -->
+
+        <section
+            id="telaAdmin"
+            class="tela-admin oculto"
+        >
+
+            <div class="admin-painel">
+
+                <header class="admin-header">
+
+                    <div>
+
+                        <span>
+                            PAINEL
+                        </span>
+
+                        <h1>
+                            Lista VIP
+                        </h1>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="btnLogout"
+                        class="btn-sair"
+                    >
+                        SAIR
+                    </button>
+
+                </header>
+
+
+                <div class="admin-conteudo">
+
+                   <div class="admin-card-resumo">
+    <span class="label">TOTAL</span>
+
+    <span
+        class="valor"
+        id="totalCadastros"
+    >
+        0
+    </span>
+</div>
+
+<div class="admin-card-resumo">
+    <span class="label">PENDENTES</span>
+
+    <span
+        class="valor"
+        id="totalPendentes"
+    >
+        0
+    </span>
+</div>
+
+<div class="admin-card-resumo">
+    <span class="label">CONFERIDOS</span>
+
+    <span
+        class="valor"
+        id="totalConferidos"
+    >
+        0
+    </span>
+</div>
+
+
+                    <div class="admin-busca">
+
+                        <input
+                            type="search"
+                            id="campoBusca"
+                            placeholder="Buscar por nome, WhatsApp ou código"
+                        >
+
+                    </div>
+
+                    <div class="filtros-status">
+
+    <button
+        type="button"
+        class="filtro-status ativo"
+        data-filtro="todos"
+    >
+        TODOS
+    </button>
+
+    <button
+        type="button"
+        class="filtro-status"
+        data-filtro="pendentes"
+    >
+        PENDENTES
+    </button>
+
+    <button
+        type="button"
+        class="filtro-status"
+        data-filtro="conferidos"
+    >
+        CONFERIDOS
+    </button>
+
+</div>
+
+
+<div class="admin-exportacao">
+
+                        <button
+                            type="button"
+                            id="btnExcel"
+                        >
+                            EXPORTAR EXCEL
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="btnPdf"
+                        >
+                            EXPORTAR PDF
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="listaAdmin"
+                        class="lista-admin"
+                    >
+                    </div>
+
+
+                    
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT PRINCIPAL
+    ====================================================== -->
+
+    <script
+        type="module"
+        src="./app.js"
+    ></script>
+
+</body>
+
+</html>

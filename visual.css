@@ -1,0 +1,1393 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: #050505;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   APLICAÇÃO
+===================================================== */
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   ÁREA DO EVENTO
+===================================================== */
+
+.evento {
+    position: relative;
+
+    width: 100%;
+    height: 510px;
+
+    background: #090909;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   IMAGEM DO EVENTO
+===================================================== */
+
+.evento-imagem {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 390px;
+
+    overflow: hidden;
+}
+
+.evento-imagem::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 50%,
+            rgba(9, 9, 9, 0.15) 70%,
+            #090909 100%
+        );
+}
+
+.evento-imagem img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center top;
+}
+
+
+/* =====================================================
+   INFORMAÇÕES DO EVENTO
+===================================================== */
+
+.evento-info {
+    position: absolute;
+
+    z-index: 5;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 145px;
+
+    padding:
+        12px
+        20px
+        25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(9, 9, 9, 0) 0%,
+            #090909 35%
+        );
+}
+
+
+/* =====================================================
+   DATA DO EVENTO
+===================================================== */
+
+.evento-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+.evento-data strong {
+    font-size: 1.35rem;
+    line-height: 1;
+
+    letter-spacing: 0.5px;
+}
+
+.evento-data span {
+    margin-top: 5px;
+
+    color: #cfcfcf;
+
+    font-size: 0.78rem;
+}
+
+
+/* =====================================================
+   HORÁRIOS
+===================================================== */
+
+.horarios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 22px;
+}
+
+.horario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.horario strong {
+    font-size: 1.65rem;
+    line-height: 1;
+}
+
+.horario span {
+    margin-top: 4px;
+
+    color: #cfcfcf;
+
+    font-size: 0.68rem;
+
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.separador {
+    width: 1px;
+    height: 38px;
+
+    background: rgba(255, 255, 255, 0.35);
+}
+
+
+/* =====================================================
+   LISTA VIP
+===================================================== */
+
+.vip {
+    position: relative;
+
+    width: 100%;
+
+    padding:
+        38px
+        22px
+        45px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #242424 0%,
+            #111111 42%,
+            #090909 100%
+        );
+}
+
+
+/* =====================================================
+   TÍTULO LISTA VIP
+===================================================== */
+
+.vip-titulo {
+    max-width: 500px;
+
+    margin:
+        0
+        auto
+        30px;
+
+    text-align: center;
+}
+
+.coroa {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 2rem;
+
+    opacity: 0.9;
+}
+
+.vip-titulo h2 {
+    font-size: 2rem;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.vip-titulo h2 span {
+    font-weight: 900;
+}
+
+.vip-titulo p {
+    margin-top: 10px;
+
+    color: #cfcfcf;
+
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   FORMULÁRIO
+===================================================== */
+
+#formCadastro {
+    width: 100%;
+    max-width: 500px;
+
+    margin: 0 auto;
+}
+
+.campo {
+    margin-bottom: 18px;
+}
+
+.campo label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #eeeeee;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.campo input {
+    width: 100%;
+    min-height: 54px;
+
+    padding:
+        0
+        16px;
+
+    border: 1px solid #3b3b3b;
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #181818;
+    color: #ffffff;
+
+    font-size: 16px;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+.campo input::placeholder {
+    color: #777777;
+}
+
+.campo input:focus {
+    border-color: #ffffff;
+
+    background: #202020;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+
+/* =====================================================
+   BOTÃO CADASTRO
+===================================================== */
+
+#btnCadastrar {
+    width: 100%;
+    min-height: 58px;
+
+    margin-top: 8px;
+
+    border: none;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #d8d8d8
+        );
+
+    color: #111111;
+
+    font-size: 0.95rem;
+    font-weight: 900;
+
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    transition:
+        transform 0.15s,
+        opacity 0.15s;
+}
+
+#btnCadastrar span {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+#btnCadastrar:active {
+    transform: scale(0.98);
+}
+
+#btnCadastrar:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   AVISOS DA LISTA VIP
+===================================================== */
+
+.vip-aviso {
+    width: 100%;
+    max-width: 500px;
+
+    margin:
+        28px
+        auto
+        0;
+
+    padding: 16px;
+
+    border: 1px solid #292929;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.03);
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+}
+
+.vip-aviso div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.vip-aviso div + div {
+    padding-left: 14px;
+
+    border-left: 1px solid #333333;
+}
+
+.vip-aviso strong {
+    font-size: 0.8rem;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vip-aviso span {
+    color: #999999;
+
+    font-size: 0.75rem;
+    line-height: 1.35;
+}
+
+
+/* =====================================================
+   TELA DE CONFIRMAÇÃO
+===================================================== */
+
+.confirmacao {
+    width: 100%;
+    min-height: 100vh;
+
+    padding:
+        35px
+        22px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #292929 0%,
+            #111111 45%,
+            #090909 100%
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirmacao-card {
+    width: 100%;
+    max-width: 480px;
+
+    padding:
+        32px
+        22px;
+
+    border: 1px solid #303030;
+    border-radius: 20px;
+
+    background: #151515;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.confirmacao-icone {
+    width: 62px;
+    height: 62px;
+
+    margin:
+        0
+        auto
+        18px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+    color: #111111;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.confirmacao-card h2 {
+    margin-bottom: 10px;
+
+    font-size: 1.6rem;
+}
+
+.confirmacao-card > p {
+    color: #bdbdbd;
+
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   CÓDIGO VIP
+===================================================== */
+
+.codigo-container {
+    margin:
+        25px
+        0
+        18px;
+
+    padding:
+        20px
+        15px;
+
+    border: 1px dashed #666666;
+    border-radius: 14px;
+
+    background: #0d0d0d;
+}
+
+.codigo-container span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #888888;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.codigo-container strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 2rem;
+
+    letter-spacing: 3px;
+
+    word-break: break-word;
+}
+
+.instrucao {
+    margin-bottom: 22px;
+}
+
+
+/* =====================================================
+   BOTÃO SECUNDÁRIO
+===================================================== */
+
+.btn-secundario {
+    width: 100%;
+    min-height: 52px;
+
+    border: 1px solid #444444;
+    border-radius: 12px;
+
+    background: transparent;
+    color: #ffffff;
+
+    font-size: 0.85rem;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.btn-secundario:active {
+    background: #222222;
+}
+
+
+/* =====================================================
+   UTILITÁRIO
+===================================================== */
+
+.oculto {
+    display: none !important;
+}
+
+
+/* =====================================================
+   TELAS MAIORES
+===================================================== */
+
+@media (min-width: 600px) {
+
+    .evento {
+        height: 540px;
+    }
+
+    .evento-imagem {
+        height: 415px;
+    }
+
+    .evento-info {
+        height: 150px;
+    }
+
+    .vip {
+        padding:
+            55px
+            30px
+            65px;
+    }
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media (min-width: 900px) {
+
+    body {
+        display: flex;
+        justify-content: center;
+
+        background: #050505;
+    }
+
+    .app {
+        width: 100%;
+        max-width: 520px;
+
+        box-shadow:
+            0 0 80px rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* =====================================================
+   PAINEL ADMINISTRATIVO
+===================================================== */
+
+.admin-app {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #252525 0%,
+            #111111 45%,
+            #050505 100%
+        );
+}
+
+
+.admin-login {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 35px 25px;
+
+    border:
+        1px solid #303030;
+
+    border-radius: 20px;
+
+    background: #151515;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+
+.admin-logo {
+    width: 62px;
+    height: 62px;
+
+    margin:
+        0
+        auto
+        18px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    color: #111111;
+
+    font-size: 2rem;
+}
+
+
+.admin-login h1 {
+    font-size: 1.8rem;
+
+    margin-bottom: 5px;
+}
+
+
+.admin-login > p {
+    margin-bottom: 28px;
+
+    color: #999999;
+
+    font-size: 0.9rem;
+}
+
+
+.admin-login form {
+    text-align: left;
+}
+
+
+.admin-login #btnLogin {
+    width: 100%;
+    min-height: 54px;
+
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #d8d8d8
+        );
+
+    color: #111111;
+
+    font-size: 0.85rem;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+.admin-login #btnLogin:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+.mensagem-login {
+    min-height: 22px;
+
+    margin-top: 16px;
+
+    text-align: center;
+
+    font-size: 0.85rem;
+}
+
+
+.mensagem-login.erro {
+    color: #ff7070;
+}
+
+
+.mensagem-login.sucesso {
+    color: #7dffae;
+}
+
+/* =========================================================
+   PAINEL ADMINISTRATIVO — AJUSTE FINAL
+========================================================= */
+
+#telaAdmin {
+    width: 100%;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(244, 196, 0, 0.10),
+            transparent 45%
+        ),
+        #080808;
+}
+
+.admin-painel {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 24px 16px 45px;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+
+    border-bottom: 1px solid #333;
+}
+
+.admin-header-text {
+    flex: 1;
+}
+
+.admin-header .marca {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #f4c400;
+
+    font-size: 0.9rem;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.admin-header h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 2rem;
+    line-height: 1.1;
+
+    font-weight: 900;
+}
+
+.admin-header p {
+    margin-top: 7px;
+
+    color: #999;
+
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   BOTÃO SAIR
+   USA O ID REAL DO HTML
+========================================================= */
+
+#btnLogout {
+    flex-shrink: 0;
+
+    min-width: 72px;
+    min-height: 44px;
+
+    padding: 0 15px;
+
+    border: 1px solid #555;
+    border-radius: 9px;
+
+    background: #171717;
+    color: #ffffff;
+
+    font-size: 0.9rem;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+#btnLogout:hover {
+    border-color: #f4c400;
+    color: #f4c400;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.admin-resumo {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+}
+
+.admin-card-resumo {
+    padding: 21px;
+
+    border: 1px solid #303030;
+    border-radius: 15px;
+
+    background: #111111;
+}
+
+.admin-card-resumo .label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #c2c2c2;
+
+    font-size: 1rem;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+.admin-card-resumo .valor {
+    display: block;
+
+    color: #f4c400;
+
+    font-size: 2.8rem;
+    line-height: 1;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   BUSCA
+========================================================= */
+
+.admin-busca {
+    margin-bottom: 22px;
+}
+
+#campoBusca {
+    width: 100%;
+
+    min-height: 58px;
+
+    padding: 0 18px;
+
+    border: 1px solid #444;
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #151515;
+    color: #ffffff;
+
+    font-size: 1.05rem;
+}
+
+#campoBusca::placeholder {
+    color: #888;
+}
+
+#campoBusca:focus {
+    border-color: #f4c400;
+
+    box-shadow:
+        0 0 0 2px rgba(244,196,0,0.12);
+}
+
+
+/* =========================================================
+   LISTA
+========================================================= */
+
+#listaAdmin {
+    display: flex;
+    flex-direction: column;
+
+    gap: 13px;
+}
+
+.admin-item {
+    padding: 20px;
+
+    border: 1px solid #303030;
+    border-radius: 14px;
+
+    background: #111;
+}
+
+.admin-item-codigo {
+    color: #f4c400;
+
+    font-size: 0.95rem;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.admin-item-nome {
+    margin-top: 8px;
+
+    color: #fff;
+
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.admin-item-info {
+    margin-top: 10px;
+
+    color: #b5b5b5;
+
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   EXPORTAÇÃO
+   USA OS IDs REAIS DO HTML
+========================================================= */
+
+.admin-exportacao {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+
+    margin-top: 28px;
+}
+
+
+/* EXCEL */
+
+#btnExcel {
+    width: 100%;
+
+    min-height: 64px;
+
+    padding: 0 18px;
+
+    border: 1px solid #4c4c4c;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1b1b1b,
+            #101010
+        );
+
+    color: #ffffff;
+
+    font-size: 1.05rem;
+    font-weight: 900;
+
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,0.35);
+
+    transition: all 0.2s ease;
+}
+
+
+/* PDF */
+
+#btnPdf {
+    width: 100%;
+
+    min-height: 64px;
+
+    padding: 0 18px;
+
+    border: 1px solid #4c4c4c;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1b1b1b,
+            #101010
+        );
+
+    color: #ffffff;
+
+    font-size: 1.05rem;
+    font-weight: 900;
+
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,0.35);
+
+    transition: all 0.2s ease;
+}
+
+
+/* EFEITO DOS BOTÕES */
+
+#btnExcel:hover,
+#btnPdf:hover {
+    border-color: #f4c400;
+
+    color: #f4c400;
+
+    background:
+        linear-gradient(
+            135deg,
+            #252525,
+            #151515
+        );
+
+    transform: translateY(-1px);
+}
+
+#btnExcel:active,
+#btnPdf:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   MOBILE — TEXTO MAIOR
+========================================================= */
+
+@media (max-width: 699px) {
+
+    .admin-painel {
+        padding: 22px 13px 40px;
+    }
+
+    .admin-header h1 {
+        font-size: 2.15rem;
+    }
+
+    .admin-header .marca {
+        font-size: 0.85rem;
+    }
+
+    .admin-header p {
+        font-size: 1rem;
+    }
+
+    .admin-card-resumo .label {
+        font-size: 1rem;
+    }
+
+    .admin-card-resumo .valor {
+        font-size: 3rem;
+    }
+
+    #campoBusca {
+        min-height: 60px;
+
+        font-size: 1.05rem;
+    }
+
+    #btnLogout {
+        min-height: 46px;
+
+        font-size: 0.95rem;
+    }
+
+    #btnExcel,
+    #btnPdf {
+        min-height: 68px;
+
+        font-size: 1.08rem;
+    }
+}
+
+
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
+
+@media (min-width: 700px) {
+
+    .admin-resumo {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .admin-exportacao {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #btnExcel,
+    #btnPdf {
+        min-height: 70px;
+    }
+}
+
+/* =========================================================
+   BOTÃO DE CONFERÊNCIA
+========================================================= */
+
+.btn-conferencia {
+    width: 100%;
+
+    min-height: 52px;
+
+    margin-top: 16px;
+
+    border: 1px solid #f4c400;
+    border-radius: 10px;
+
+    background: #f4c400;
+    color: #080808;
+
+    font-size: 0.95rem;
+    font-weight: 900;
+
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-conferencia:hover {
+    background: #ffd91a;
+
+    transform: translateY(-1px);
+}
+
+.btn-conferencia:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* Já conferido */
+
+.btn-conferencia.conferido {
+    border-color: #555;
+
+    background: #191919;
+
+    color: #f4c400;
+}
+
+.btn-conferencia.conferido:hover {
+    border-color: #f4c400;
+}
+
+
+/* Status conferido */
+
+.admin-item:has(.btn-conferencia.conferido) {
+    border-color: rgba(244, 196, 0, 0.35);
+}
+
+/* =========================================================
+   FILTROS DE STATUS
+========================================================= */
+
+.filtros-status {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.filtro-status {
+    min-height: 48px;
+
+    padding: 0 8px;
+
+    border: 1px solid #3d3d3d;
+    border-radius: 9px;
+
+    background: #151515;
+    color: #a8a8a8;
+
+    font-size: 0.78rem;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.filtro-status:hover {
+    border-color: #777;
+    color: #ffffff;
+}
+
+.filtro-status.ativo {
+    border-color: #f4c400;
+
+    background: #f4c400;
+
+    color: #080808;
+}
+
+
+/* =========================================================
+   CARDS DE RESUMO — TRÊS COLUNAS NO CELULAR
+========================================================= */
+
+.admin-resumo {
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+.admin-card-resumo {
+    padding: 15px 10px;
+
+    text-align: center;
+}
+
+.admin-card-resumo .label {
+    font-size: 0.68rem;
+    line-height: 1.2;
+}
+
+.admin-card-resumo .valor {
+    margin-top: 7px;
+
+    font-size: 2rem;
+}
+
+
+/* =========================================================
+   TELAS MAIORES
+========================================================= */
+
+@media (min-width: 700px) {
+
+    .admin-resumo {
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 14px;
+    }
+
+    .filtros-status {
+        max-width: 600px;
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .filtro-status {
+        min-height: 52px;
+        font-size: 0.9rem;
+    }
+
+}
