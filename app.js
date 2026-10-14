@@ -319,16 +319,6 @@ formCadastro.addEventListener(
 
         evento.preventDefault();
 
-        alert(
-    "CADASTRAMENTO ENCERRADO\n\n" +
-    "O período para cadastro na Lista VIP foi encerrado.\n\n" +
-    "Mas você ainda pode participar do evento!\n\n" +
-    "Compareça ao evento. O ingresso estará bem baratinho na hora.\n\n" +
-    "Esperamos você!"
-);
-
-return;
-
         if (!validarFormulario()) {
             return;
         }
