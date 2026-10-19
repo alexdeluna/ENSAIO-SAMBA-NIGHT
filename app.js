@@ -34,6 +34,85 @@ const campoWhatsapp = document.getElementById("whatsapp");
 
 const btnCadastrar = document.getElementById("btnCadastrar");
 
+// Aviso de privacidade e comunicações: só é criado uma vez e não interfere no painel.
+const VERSAO_AVISO_CADASTRO = "2026-10-19-v1";
+let concordanciaAvisoConfirmada = false;
+let modalAvisoCadastro = null;
+
+function criarModalAvisoCadastro() {
+    if (modalAvisoCadastro) return modalAvisoCadastro;
+
+    const overlay = document.createElement("div");
+    overlay.id = "modalAvisoCadastro";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-labelledby", "tituloAvisoCadastro");
+    Object.assign(overlay.style, {
+        position: "fixed", inset: "0", zIndex: "10000", display: "none",
+        alignItems: "center", justifyContent: "center", padding: "20px",
+        background: "rgba(0,0,0,.78)"
+    });
+
+    const caixa = document.createElement("div");
+    Object.assign(caixa.style, {
+        width: "100%", maxWidth: "460px", maxHeight: "90vh", overflowY: "auto",
+        boxSizing: "border-box", padding: "24px", borderRadius: "16px",
+        background: "#fff", color: "#222", boxShadow: "0 12px 40px rgba(0,0,0,.35)",
+        fontFamily: "Arial, sans-serif", lineHeight: "1.55"
+    });
+
+    const titulo = document.createElement("h2");
+    titulo.id = "tituloAvisoCadastro";
+    titulo.textContent = "Aviso de privacidade e comunicação";
+    Object.assign(titulo.style, { margin: "0 0 14px", fontSize: "21px" });
+
+    const texto = document.createElement("p");
+    texto.textContent = "Ao concordar e concluir seu cadastro na Lista VIP, você declara estar ciente de que os dados informados serão usados para administrar sua inscrição e enviar avisos sobre este evento e informações e divulgações de futuros eventos do Samba Nigth pelo WhatsApp e pelo e-mail fornecidos. Seus dados pessoais não serão vendidos nem comercializados com terceiros.";
+    Object.assign(texto.style, { margin: "0 0 22px", fontSize: "15px" });
+
+    const botoes = document.createElement("div");
+    Object.assign(botoes.style, { display: "flex", gap: "12px" });
+
+    const cancelar = document.createElement("button");
+    cancelar.type = "button";
+    cancelar.textContent = "Cancelar";
+    Object.assign(cancelar.style, { flex: "1", minHeight: "46px", border: "1px solid #777", borderRadius: "8px", background: "#eee", color: "#222", fontWeight: "700", cursor: "pointer" });
+
+    const concordar = document.createElement("button");
+    concordar.type = "button";
+    concordar.textContent = "Concordar";
+    Object.assign(concordar.style, { flex: "1", minHeight: "46px", border: "0", borderRadius: "8px", background: "#e6b800", color: "#111", fontWeight: "700", cursor: "pointer" });
+
+    cancelar.addEventListener("click", () => {
+        overlay.style.display = "none";
+        concordanciaAvisoConfirmada = false;
+        formCadastro.reset();
+        alterarEstadoBotao("normal");
+        mostrarTela(telaPublica);
+        campoNome.focus();
+    });
+
+    concordar.addEventListener("click", () => {
+        overlay.style.display = "none";
+        concordanciaAvisoConfirmada = true;
+        // Reenvia o formulário pelo fluxo já existente; não cria um segundo fluxo de cadastro.
+        formCadastro.requestSubmit();
+    });
+
+    botoes.append(cancelar, concordar);
+    caixa.append(titulo, texto, botoes);
+    overlay.appendChild(caixa);
+    document.body.appendChild(overlay);
+    modalAvisoCadastro = overlay;
+    return overlay;
+}
+
+function abrirModalAvisoCadastro() {
+    const modal = criarModalAvisoCadastro();
+    modal.style.display = "flex";
+    modal.querySelector("button:last-child")?.focus();
+}
+
 
 // ============================================================
 // CONFIRMAÇÃO
@@ -711,6 +790,12 @@ formCadastro.addEventListener(
         if (!validarFormulario()) {
             return;
         }
+        // A concordância é solicitada antes de gerar código ou gravar qualquer dado.
+        if (!concordanciaAvisoConfirmada) {
+            abrirModalAvisoCadastro();
+            return;
+        }
+        concordanciaAvisoConfirmada = false;
         if (publicacaoMudouDurantePreenchimento) {
             alert("O evento publicado mudou. Limpe e preencha novamente os dados para evitar uma inscrição na lista errada.");
             return;
@@ -790,6 +875,9 @@ lote.set(
         whatsapp: whatsapp,
         status: "ativo",
         eventoId: eventoIdCadastro,
+        consentimentoComunicacoes: true,
+        consentimentoAvisoVersao: VERSAO_AVISO_CADASTRO,
+        consentimentoEm: serverTimestamp(),
         criadoEm: serverTimestamp()
     }
 );
