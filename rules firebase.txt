@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function adminAtivo() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/administradores/$(request.auth.uid))
+        && get(/databases/$(database)/documents/administradores/$(request.auth.uid)).data.ativo == true;
+    }
+
+    match /administradores/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow list: if false;
+      allow create, update, delete: if false;
+    }
+
+    // Lista global mantida para compatibilidade. Novos registros recebem eventoId.
+    match /listaVip/{cadastroId} {
+      allow create: if request.resource.data.keys().hasOnly([
+          'codigo', 'nome', 'email', 'whatsapp', 'status', 'eventoId', 'criadoEm'
+        ])
+        && request.resource.data.codigo is string
+        && request.resource.data.nome is string
+        && request.resource.data.email is string
+        && request.resource.data.whatsapp is string
+        && request.resource.data.eventoId is string
+        && request.resource.data.status == 'ativo'
+        && request.resource.data.email == request.resource.data.email.lower()
+        && !request.resource.data.email.matches('.*[/].*')
+        && request.resource.data.whatsapp.matches('^[0-9]{11}$')
+        && getAfter(/databases/$(database)/documents/unicidadeEmail/$(request.resource.data.eventoId + '__' + request.resource.data.email)).data.cadastroId == cadastroId
+        && getAfter(/databases/$(database)/documents/unicidadeWhatsapp/$(request.resource.data.eventoId + '__' + request.resource.data.whatsapp)).data.cadastroId == cadastroId
+        && (!exists(/databases/$(database)/documents/configuracoes/eventoPublicado)
+          || get(/databases/$(database)/documents/configuracoes/eventoPublicado).data.inscricoesAtivas == true)
+        && (
+          (request.resource.data.eventoId == '__legacy__'
+            && (!exists(/databases/$(database)/documents/configuracoes/eventoPublicado)
+              || !('eventoId' in get(/databases/$(database)/documents/configuracoes/eventoPublicado).data)
+              || get(/databases/$(database)/documents/configuracoes/eventoPublicado).data.eventoId == ''))
+          || (request.resource.data.eventoId != '__legacy__'
+            && request.resource.data.eventoId == get(/databases/$(database)/documents/configuracoes/eventoPublicado).data.eventoId
+            && exists(/databases/$(database)/documents/eventos/$(request.resource.data.eventoId)))
+        );
+
+      allow read: if adminAtivo();
+      allow update: if adminAtivo()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in ['ativo', 'conferido'];
+      allow delete: if adminAtivo();
+    }
+
+    match /unicidadeEmail/{chave} {
+      allow create: if request.resource.data.keys().hasOnly(['cadastroId', 'criadoEm'])
+        && request.resource.data.cadastroId is string
+        && getAfter(/databases/$(database)/documents/listaVip/$(request.resource.data.cadastroId)).data.email != null
+        && chave == getAfter(/databases/$(database)/documents/listaVip/$(request.resource.data.cadastroId)).data.eventoId + '__' + getAfter(/databases/$(database)/documents/listaVip/$(request.resource.data.cadastroId)).data.email;
+      allow read, update: if false;
+      allow delete: if adminAtivo();
+    }
+
+    match /unicidadeWhatsapp/{chave} {
+      allow create: if request.resource.data.keys().hasOnly(['cadastroId', 'criadoEm'])
+        && request.resource.data.cadastroId is string
+        && getAfter(/databases/$(database)/documents/listaVip/$(request.resource.data.cadastroId)).data.whatsapp != null
+        && chave == getAfter(/databases/$(database)/documents/listaVip/$(request.resource.data.cadastroId)).data.eventoId + '__' + getAfter(/databases/$(database)/documents/listaVip/$(request.resource.data.cadastroId)).data.whatsapp;
+      allow read, update: if false;
+      allow delete: if adminAtivo();
+    }
+
+    // Somente administradores ativos podem listar e administrar eventos.
+    match /eventos/{eventoId} {
+      allow read, create, update, delete: if adminAtivo();
+    }
+
+    match /configuracoes/{configId} {
+      allow get: if configId == 'eventoPublicado';
+      allow list: if false;
+      allow create, update, delete: if adminAtivo();
+    }
+  }
+}
